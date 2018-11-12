@@ -1,0 +1,29 @@
+{
+  "name": "simple-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lykmapipo/env": "^0.3.2",
+    "@lykmapipo/express-common": "^0.9.3",
+    "@lykmapipo/express-router-extra": "^0.2.1",
+    "@lykmapipo/mongoose-faker": "^0.8.1",
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.3.10",
+    "mongoose-timestamp": "^0.6.0",
+    "postmark": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
