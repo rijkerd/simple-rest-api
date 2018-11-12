@@ -8,4 +8,11 @@ const router = new Router({
 
 router.get('/users', controller.list);
 
+
+
+// router.get('/register', )
+// router.post('/register', controller.register)
+
+router.route('/register').get(controller.register).post(controller.register)
+
 module.exports = router;

@@ -1,12 +1,6 @@
 const User = require('../models/index');
 
 /**
- * @param users{Array} 
- * @description random local values
- */
-const users = [{ "name": "richard" }, { "name": "nanelle" }]
-
-/**
  * @method list
  * @param request{Object} 
  * @param response{Object}
@@ -16,6 +10,21 @@ const users = [{ "name": "richard" }, { "name": "nanelle" }]
  * 
  */
 exports.list = function (request, response) {
-    const user = User.fake(100);
+    const user = User.fake(10);
     response.json(user)
+}
+
+
+exports.register = function (request, response) {
+    const credentails = {
+        name: "Ricardo",
+        email: "richardaggrey7@gmail.com",
+        password: "123456"
+    }
+    User.register(credentails, function (error, registerable) {
+        if (error) {
+            response.json(error)
+        }
+        response.json(registerable)
+    })
 }
