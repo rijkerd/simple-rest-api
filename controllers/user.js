@@ -1,3 +1,5 @@
+'use strict';
+
 const User = require('../models/index');
 
 /**
@@ -10,21 +12,23 @@ const User = require('../models/index');
  * 
  */
 exports.list = function (request, response) {
-    const user = User.fake(10);
-    response.json(user)
-}
+    const user = User.fake(5);
+    response.json(user);
+};
 
 
 exports.register = function (request, response) {
+    console.log(request.body);
     const credentails = {
-        name: "Ricardo",
-        email: "richardaggrey7@gmail.com",
-        password: "123456"
+        email: request.body.email,
+        name: request.body.name,
+        password: request.body.password
     }
     User.register(credentails, function (error, registerable) {
         if (error) {
-            response.json(error)
+            response.status(400).json(error);
         }
-        response.json(registerable)
-    })
-}
+        response.status(201).json(registerable);
+    });
+};
+

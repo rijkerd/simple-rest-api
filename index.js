@@ -3,9 +3,12 @@
 
 //dependencies
 const app = require('@lykmapipo/express-common');
-
+const mongoose = require('./middleware/mongoose');
 //mount routers
 app.mount('./routes', './routes/users');
+
+app.use(mongoose.checkState);
+//Database connection
 
 //start app
 app.start(function onStart(error, env) {

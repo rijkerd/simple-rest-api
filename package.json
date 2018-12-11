@@ -27,6 +27,7 @@
     "postmark": "^2.2.0"
   },
   "devDependencies": {
+    "jshint": "^2.9.6",
     "nodemon": "^1.18.6"
   }
 }

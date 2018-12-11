@@ -15,6 +15,7 @@ const userSchema = new Schema({
             type: 'email'
         }
     },
+
     name: {
         type: String,
         required: [true, 'Name is required'],
@@ -25,6 +26,7 @@ const userSchema = new Schema({
             type: 'userName'
         }
     },
+
     profileImage: {
         type: String,
         fake: {
@@ -32,6 +34,7 @@ const userSchema = new Schema({
             type: 'avatar'
         }
     },
+
     password: {
         type: String,
         unique: true,
@@ -40,7 +43,7 @@ const userSchema = new Schema({
 });
 
 mongoose.plugin(require('@lykmapipo/mongoose-faker'));
-userSchema.plugin(irina)
+userSchema.plugin(irina);
 userSchema.plugin(timestamp);
 
 module.exports = mongoose.model('User', userSchema);
