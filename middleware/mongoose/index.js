@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 const mongooseConnect = function () {
-    mongoose.connect(process.env.MONGO_URI);
+    mongoose.connect(process.env.MONGODB_URI);
 };
 
 mongoose.Promise = Promise;
