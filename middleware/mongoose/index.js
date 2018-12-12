@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 const mongooseConnect = function () {
-    mongoose.connect('mongodb://localhost:27017/userstz');
+    mongoose.connect(process.env.MONGO_URI);
 };
 
 mongoose.Promise = Promise;
