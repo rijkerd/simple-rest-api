@@ -7,11 +7,23 @@
     "node": "10.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
-  "author": "",
+  "keywords": [
+    "mongoose",
+    "irina",
+    "@lykmapipo/express-common",
+    "heroku",
+    "@lykmapipo/router-extra",
+    "express",
+    "@lykmapipo/mongoose-faker"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rijkerd/simple-rest-api.git"
+  },
+  "author": "rijkerd",
   "license": "ISC",
   "dependencies": {
     "@lykmapipo/env": "^0.3.2",
