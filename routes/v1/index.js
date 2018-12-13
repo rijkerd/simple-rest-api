@@ -1,9 +1,12 @@
 'use strict';
 
+const controller = require('../../controllers/user');
 
-//dependencies
 const Router = require('@lykmapipo/express-router-extra').Router;
-const router = new Router({ version: '1.0.0' });
+
+const router = new Router({
+    version: '1.0.0'
+});
 
 router.get('/\.:ext?', function (request, response) {
     response.json({
@@ -12,5 +15,8 @@ router.get('/\.:ext?', function (request, response) {
     });
 });
 
+router.get('/users', controller.list);
+
+router.post('/register', controller.register);
 
 module.exports = router;
