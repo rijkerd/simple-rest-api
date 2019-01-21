@@ -43,6 +43,7 @@
     "postmark": "^2.2.0"
   },
   "devDependencies": {
+    "dotenv": "^6.2.0",
     "jshint": "^2.9.6",
     "nodemon": "^1.18.6"
   }
