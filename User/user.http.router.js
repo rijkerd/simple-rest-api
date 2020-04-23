@@ -8,6 +8,7 @@ const {
   getByIdFor,
   postFor,
   patchFor,
+  putFor,
   deleteFor,
 } = require('@lykmapipo/express-rest-actions');
 
@@ -123,8 +124,31 @@ router.patch(
   PATH_SINGLE,
   patchFor({
     patch: (query, done) => {
-      const options = _.pick(query, '_id', 'name');
+      const options = _.pick(query, ['_id', 'name']);
       return User.patch(options, done);
+    },
+  })
+);
+
+/**
+ * @api {put} /users/:id Put Existing User
+ * @apiVersion 1.0.0
+ * @apiName PutUser
+ * @apiGroup User
+ * @apiDescription Put existing user
+ * @apiUse RequestHeaders
+ * @apiUse User
+ *
+ * @apiUse RequestHeadersExample
+ * @apiUse UserSuccessResponse
+ */
+
+router.put(
+  PATH_SINGLE,
+  putFor({
+    put: (query, done) => {
+      const options = _.pick(query, ['_id', 'name']);
+      return User.put(options, done);
     },
   })
 );
