@@ -3,6 +3,7 @@
 //dependencies
 const { mount, start } = require('@lykmapipo/express-common');
 const { connect } = require('@lykmapipo/mongoose-common');
+const { fileRouter } = require('@lykmapipo/file');
 const { getNumber, getString } = require('@lykmapipo/env');
 
 const PORT = getNumber('PORT', 5000);
@@ -12,6 +13,7 @@ connect(MONGODB_URI, (error) => error);
 
 // make routes available for use
 mount(require('./Topic/topic.http.router'));
+mount(fileRouter);
 mount(require('./User/user.http.router'));
 
 start((error) => {
