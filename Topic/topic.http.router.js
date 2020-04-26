@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const {
   getFor,
   schemaFor,
@@ -5,10 +6,11 @@ const {
   getByIdFor,
   postFor,
   //   patchFor,
-  //   putFor,
+  putFor,
   //   deleteFor,
   Router,
 } = require('@lykmapipo/express-rest-actions');
+const { uploaderFor } = require('@lykmapipo/file');
 const { getString } = require('@lykmapipo/env');
 
 const Topic = require('./topic.model');
@@ -50,9 +52,23 @@ router.get(
 
 router.post(
   PATH_LIST,
+  uploaderFor(),
   postFor({
     post: (body, done) => {
-      console.log(body);
+      const options = _.pick(body, ['name', 'description', 'resource']);
+      Topic.post(options, done);
+    },
+  })
+);
+
+router.put(
+  PATH_SINGLE,
+  uploaderFor(),
+  putFor({
+    put: (body, done) => {
+      const options = _.pick(body, ['id', 'resource']);
+      console.log(options);
+      // TODO: fix the put to update topic
       done();
     },
   })

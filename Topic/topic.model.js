@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
 const timestamp = require('mongoose-timestamp');
-const { FileTypes } = require('@lykmapipo/file');
 
 const { Schema } = mongoose;
+
+const POPULATE_OPTIONS = {
+  select: {
+    stream: 1,
+    download: 1,
+    filename: 1,
+    uploadDate: 1,
+    contentType: 1,
+  },
+  maxDepth: 1,
+};
 
 const topicSchema = new Schema({
   name: {
@@ -14,14 +24,9 @@ const topicSchema = new Schema({
   description: {
     type: String,
     lowercase: true,
-    required: [true, 'Description is required'],
     trim: true,
   },
-  resource: [
-    {
-      type: FileTypes.File,
-    },
-  ],
+  resource: [{ type: Schema.Types.Mixed }],
 });
 
 mongoose.plugin(timestamp);
