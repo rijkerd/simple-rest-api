@@ -12,8 +12,8 @@ const MONGODB_URI = getString('MONGODB_URI');
 connect(MONGODB_URI, (error) => error);
 
 // make routes available for use
-mount(require('./Topic/topic.http.router'));
 mount(fileRouter);
+mount(require('./Topic/topic.http.router'));
 mount(require('./User/user.http.router'));
 
 start((error) => {

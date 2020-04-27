@@ -7,7 +7,7 @@ const {
   postFor,
   //   patchFor,
   putFor,
-  //   deleteFor,
+  deleteFor,
   Router,
 } = require('@lykmapipo/express-rest-actions');
 const { uploaderFor } = require('@lykmapipo/file');
@@ -67,9 +67,19 @@ router.put(
   putFor({
     put: (body, done) => {
       const options = _.pick(body, ['id', 'resource']);
-      console.log(options);
-      // TODO: fix the put to update topic
-      done();
+
+      const { id, resource } = options;
+      Topic.findByIdAndUpdate(id, { $push: { resource } }, { new: true }, done);
+    },
+  })
+);
+
+router.delete(
+  PATH_SINGLE,
+  deleteFor({
+    del: (query, done) => {
+      const options = _.pick(query, '_id');
+      return Topic.del(options, done);
     },
   })
 );
