@@ -19,7 +19,6 @@ const Topic = require('./topic.model');
 const API_VERSION = getString('API_VERSION', '1.0.0');
 const PATH_SINGLE = '/topics/:id';
 const PATH_LIST = '/topics';
-// const PATH_EXPORT = '/topics/export';
 const PATH_SCHEMA = '/topics/schema/';
 
 const router = new Router({

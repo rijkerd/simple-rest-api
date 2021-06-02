@@ -63,6 +63,10 @@ UserSchema.methods.preValidate = function preValidate(done) {
 };
 
 UserSchema.plugin(actions);
-UserSchema.plugin(irina);
+UserSchema.plugin(irina, {
+  registerable: {
+    autoConfirm: true,
+  },
+});
 
 module.exports = exports = model('User', UserSchema);
