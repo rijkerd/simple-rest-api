@@ -1,24 +1,61 @@
 'use strict';
 
 //dependencies
-const { mount, start } = require('@lykmapipo/express-common');
+const { app } = require('@lykmapipo/express-common');
+const keys = require('lodash/keys');
 const { connect } = require('@lykmapipo/mongoose-common');
-const { fileRouter } = require('@lykmapipo/file');
-const { getNumber, getString } = require('@lykmapipo/env');
+const { getString } = require('@lykmapipo/env');
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
+const User = require('./User/user.model');
+const { graphqlHTTP } = require('express-graphql');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
-const PORT = getNumber('PORT', 5000);
 const MONGODB_URI = getString('MONGODB_URI');
 
 connect(MONGODB_URI, (error) => error);
 
-// make routes available for use
-mount(fileRouter);
-mount(require('./Topic/topic.http.router'));
-mount(require('./User/user.http.router'));
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: graphqlSchema,
+    rootValue: graphqlResolver,
+    graphiql: true,
+  })
+);
 
-start((error) => {
+server.listen(app.get('port'), (error) => {
   if (error) {
     throw new Error(error);
   }
-  console.log(`visit http://0.0.0.0:${PORT}/v1/`);
+
+  console.log(app.get('port'));
+
+  console.log('Worked');
+});
+
+var connectedUser = {};
+io.on('connection', (socket) => {
+  console.log('client connect...', socket.id);
+  console.log('Connected');
+
+  socket.on('register', (data) => {
+    connectedUser[data] = socket;
+    console.warn('ConnetecdNew', keys(connectedUser));
+  });
+
+  socket.on('consultation_request', (data) => {
+    const { requester, doctor } = data;
+    connectedUser[requester].emit('new_message', {
+      message: 'This for patient',
+    });
+    connectedUser[doctor].emit('new_message', {
+      message: 'This is for doctor',
+    });
+  });
+
+  socket.on('new_message', (data) => {
+    console.log(data);
+  });
 });
