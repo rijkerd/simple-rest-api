@@ -20,12 +20,22 @@ const ProductSchema = new Schema(
       unique: true,
       trim: true,
     },
+    description: String,
+    quantity: Number,
     price: {
       type: Number,
     },
-    shop: {
+    availability: Boolean,
+    photos: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: FileTypes.File.ref,
+        autopopulate: true,
+      },
+    ],
+    owner: {
       type: ObjectId,
-      ref: 'Shop',
+      ref: 'User',
     },
   },
   SCHEMA_OPTIONS
