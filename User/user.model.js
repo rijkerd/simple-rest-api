@@ -36,6 +36,14 @@ const UserSchema = new Schema(
       },
     },
 
+    phone: {
+      type: String,
+      required: [true, 'Phone Number already exists'],
+      unique: true,
+      index: true,
+      trim: true,
+    },
+
     profileImage: {
       type: String,
       fake: {
