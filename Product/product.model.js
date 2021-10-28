@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const actions = require('mongoose-rest-actions');
 const { ObjectId } = require('@lykmapipo/mongoose-common');
 const { FileTypes } = require('@lykmapipo/file');
+const faker = require('@lykmapipo/mongoose-faker');
 
+mongoose.plugin(faker);
 const { Schema } = mongoose;
 
 const SCHEMA_OPTIONS = {
@@ -25,17 +27,17 @@ const ProductSchema = new Schema(
     price: {
       type: Number,
     },
-    availability: Boolean,
-    photos: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: FileTypes.File.ref,
-        autopopulate: true,
-      },
-    ],
+    photo: {
+      type: mongoose.Schema.ObjectId,
+      ref: FileTypes.File.ref,
+      autopopulate: true,
+    },
+    available: { type: Boolean, default: false },
     owner: {
-      type: ObjectId,
-      ref: 'User',
+      name: { type: String, default: 'iRentals' },
+      description: { type: String, default: 'Rent anything' },
+      phoneNumber: { type: String, default: '+255657123456' },
+      email: { type: String, default: 'hello@studio19.co.tz' },
     },
   },
   SCHEMA_OPTIONS

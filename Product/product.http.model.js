@@ -3,6 +3,7 @@ const {
   getFor,
   deleteFor,
   postFor,
+  patchFor,
   Router,
 } = require('@lykmapipo/express-rest-actions');
 const { getString } = require('@lykmapipo/env');
@@ -30,8 +31,18 @@ router.post(
   uploaderFor(),
   postFor({
     post: (body, done) => {
-      const options = _.pick(body, ['name', 'image', 'price', 'shop']);
-      return Product.post(options, done);
+      console.log(body);
+      return Product.post(body, done);
+    },
+  })
+);
+
+router.patch(
+  PATH_SINGLE,
+  uploaderFor(),
+  patchFor({
+    patch: (body, done) => {
+      return Product.patch(body, done);
     },
   })
 );

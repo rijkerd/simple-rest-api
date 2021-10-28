@@ -1,26 +1,52 @@
 'use strict';
 
 //dependencies
-const { app } = require('@lykmapipo/express-common');
+const { app, mount, start } = require('@lykmapipo/express-common');
 const keys = require('lodash/keys');
 const { connect } = require('@lykmapipo/mongoose-common');
-const { getString } = require('@lykmapipo/env');
-const server = require('http').createServer(app);
+const { fileRouter, createModels } = require('@lykmapipo/file');
+const { getString, getNumber } = require('@lykmapipo/env');
+// const server = require('http').createServer(app);
 // const io = require('socket.io').listen(server);
 
 const MONGODB_URI = getString('MONGODB_URI');
+const PORT = getNumber('PORT', 5000);
 
-connect(MONGODB_URI, (error) => error);
-
-server.listen(app.get('port'), (error) => {
-  if (error) {
-    throw new Error(error);
-  }
-
-  console.log(app.get('port'));
-
-  console.log('Worked');
+app.get('/', (req, res) => {
+  res.send({ status: 'working' });
 });
+
+connect(MONGODB_URI, (error) => {
+  if (error) throw new Error(error);
+
+  createModels();
+
+  mount([fileRouter, require('./Product/product.http.model')]);
+
+  start(PORT, (err) => {
+    if (err) {
+      throw new Error(err);
+    }
+
+    // eslint-disable-next-line no-console
+    console.log(`visit http://0.0.0.0:${PORT}/v1/`);
+  });
+});
+
+// connect(MONGODB_URI, (error) => error);
+
+// server.listen(app.get('port'), (error) => {
+//   if (error) {
+//     throw new Error(error);
+//   }
+//   createModels();
+
+//   mount([fileRouter, require('./Product/product.http.model')]);
+
+//   console.log(app.get('port'));
+
+//   console.log('Worked');
+// });
 
 // var connectedUser = {};
 // io.on('connection', (socket) => {
