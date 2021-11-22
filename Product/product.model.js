@@ -32,7 +32,7 @@ const ProductSchema = new Schema(
       ref: FileTypes.File.ref,
       autopopulate: true,
     },
-    available: { type: Boolean, default: false },
+    available: { type: Boolean, default: true },
     owner: {
       name: { type: String, default: 'iRentals' },
       description: { type: String, default: 'Rent anything' },
